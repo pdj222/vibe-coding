@@ -20,17 +20,17 @@ function updateClock() {
 updateClock(); // 초기 로드 시 바로 표시
 setInterval(updateClock, 1000); // 1초마다 갱신
 
-// 좌측 상단 달력: 이번 달 날짜를 그리고 오늘을 강조 표시한다
+// 좌측 상단 달력: 이전/다음 달 이동이 가능하며, 실제 오늘 달을 볼 때만 오늘을 강조한다
+const today = new Date();
+let viewYear = today.getFullYear();
+let viewMonth = today.getMonth();
+
 function renderCalendar() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const today = now.getDate();
+  document.getElementById('calendar-title').textContent = `${viewYear}년 ${viewMonth + 1}월`;
 
-  document.getElementById('calendar-title').textContent = `${year}년 ${month + 1}월`;
-
-  const firstWeekday = new Date(year, month, 1).getDay(); // 이번 달 1일의 요일 (0=일)
-  const lastDate = new Date(year, month + 1, 0).getDate(); // 이번 달 마지막 날짜
+  const firstWeekday = new Date(viewYear, viewMonth, 1).getDay(); // 보이는 달 1일의 요일 (0=일)
+  const lastDate = new Date(viewYear, viewMonth + 1, 0).getDate(); // 보이는 달 마지막 날짜
+  const isCurrentMonth = viewYear === today.getFullYear() && viewMonth === today.getMonth();
 
   const daysEl = document.getElementById('calendar-days');
   daysEl.innerHTML = ''; // 재호출 시 이전 달의 날짜 칸을 제거
@@ -42,10 +42,30 @@ function renderCalendar() {
   for (let d = 1; d <= lastDate; d++) {
     const cell = document.createElement('span');
     cell.textContent = d;
-    if (d === today) cell.classList.add('today');
+    if (isCurrentMonth && d === today.getDate()) cell.classList.add('today');
     daysEl.appendChild(cell);
   }
 }
+
+document.getElementById('calendar-prev').addEventListener('click', () => {
+  viewMonth -= 1;
+  if (viewMonth < 0) {
+    // 1월에서 이전으로 가면 전년도 12월로 넘어감
+    viewMonth = 11;
+    viewYear -= 1;
+  }
+  renderCalendar();
+});
+
+document.getElementById('calendar-next').addEventListener('click', () => {
+  viewMonth += 1;
+  if (viewMonth > 11) {
+    // 12월에서 다음으로 가면 다음년도 1월로 넘어감
+    viewMonth = 0;
+    viewYear += 1;
+  }
+  renderCalendar();
+});
 
 renderCalendar();
 
