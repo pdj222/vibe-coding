@@ -8,6 +8,27 @@ html, body {
   font-family: 'Segoe UI', 'Malgun Gothic', sans-serif;
 }
 
+/* 우측 상단 고정 시계 */
+.clock-box {
+  position: fixed; /* 스크롤과 무관하게 항상 화면 우측 상단에 표시 */
+  top: 24px;
+  right: 28px;
+  text-align: right;
+  color: #e2e8f0;
+}
+
+.clock-box #time {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.clock-box #date {
+  margin-top: 2px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
 .todo-app {
   width: 380px;
   background: linear-gradient(160deg, #1e293b, #172033);

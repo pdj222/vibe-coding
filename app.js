@@ -2,6 +2,24 @@ const form = document.getElementById('todo-form');
 const input = document.getElementById('todo-input');
 const list = document.getElementById('todo-list');
 
+// 우측 상단 시계: 현재 시각과 날짜를 갱신한다
+function updateClock() {
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0'); // 한 자리 숫자를 두 자리로 맞춤 (예: 5 -> 05)
+
+  const h = pad(now.getHours());
+  const m = pad(now.getMinutes());
+  const s = pad(now.getSeconds());
+  document.getElementById('time').textContent = `${h}:${m}:${s}`;
+
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  const dateStr = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일 (${days[now.getDay()]})`;
+  document.getElementById('date').textContent = dateStr;
+}
+
+updateClock(); // 초기 로드 시 바로 표시
+setInterval(updateClock, 1000); // 1초마다 갱신
+
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const text = input.value.trim();
