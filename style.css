@@ -29,6 +29,52 @@ html, body {
   color: #94a3b8;
 }
 
+/* 좌측 상단 고정 달력 */
+.calendar-box {
+  position: fixed; /* 스크롤과 무관하게 항상 화면 좌측 상단에 표시 */
+  top: 24px;
+  left: 28px;
+  width: 220px;
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 12px;
+  padding: 14px;
+  color: #e2e8f0;
+}
+
+#calendar-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.calendar-weekdays,
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.calendar-weekdays {
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+.calendar-days span {
+  padding: 3px 0;
+  border-radius: 6px;
+}
+
+.calendar-days span.today {
+  /* 오늘 날짜만 강조 배경으로 눈에 띄게 표시 */
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  color: #ffffff;
+  font-weight: 700;
+}
+
 .todo-app {
   width: 380px;
   background: linear-gradient(160deg, #1e293b, #172033);

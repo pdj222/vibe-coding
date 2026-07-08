@@ -7,6 +7,17 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- 좌측 상단 고정 달력 (app.js의 renderCalendar에서 값 갱신) -->
+  <div class="calendar-box">
+    <div id="calendar-title">-</div>
+    <!-- 요일 헤더 (고정, 매월 다시 그릴 필요 없음) -->
+    <div class="calendar-weekdays">
+      <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+    </div>
+    <!-- 날짜 칸: renderCalendar가 매번 새로 채움 -->
+    <div id="calendar-days" class="calendar-days"></div>
+  </div>
+
   <!-- 우측 상단 고정 시계 (app.js의 updateClock에서 값 갱신) -->
   <div class="clock-box">
     <div id="time">--:--:--</div>
