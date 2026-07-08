@@ -8,12 +8,17 @@ html, body {
   font-family: 'Segoe UI', 'Malgun Gothic', sans-serif;
 }
 
-/* 우측 상단 고정 시계 */
+/* 시계, 달력, 할 일 목록을 세로로 모아 화면 중앙에 배치 */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 시계 */
 .clock-box {
-  position: fixed; /* 스크롤과 무관하게 항상 화면 우측 상단에 표시 */
-  top: 24px;
-  right: 28px;
-  text-align: right;
+  text-align: center;
   color: #e2e8f0;
 }
 
@@ -29,11 +34,8 @@ html, body {
   color: #94a3b8;
 }
 
-/* 좌측 상단 고정 달력 */
+/* 달력 */
 .calendar-box {
-  position: fixed; /* 스크롤과 무관하게 항상 화면 좌측 상단에 표시 */
-  top: 24px;
-  left: 28px;
   width: 220px;
   background: rgba(30, 41, 59, 0.7);
   border: 1px solid rgba(148, 163, 184, 0.15);
