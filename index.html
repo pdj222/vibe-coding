@@ -7,34 +7,37 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- 좌측 상단 고정 달력 (app.js의 renderCalendar에서 값 갱신) -->
-  <div class="calendar-box">
-    <div class="calendar-header">
-      <button id="calendar-prev" class="calendar-nav" type="button" aria-label="이전 달">‹</button>
-      <div id="calendar-title">-</div>
-      <button id="calendar-next" class="calendar-nav" type="button" aria-label="다음 달">›</button>
+  <!-- 달력, 시계, 할 일 목록을 화면 중앙에 세로로 모아서 배치 -->
+  <div class="dashboard">
+    <!-- 시계 (app.js의 updateClock에서 값 갱신) -->
+    <div class="clock-box">
+      <div id="time">--:--:--</div>
+      <div id="date">-</div>
     </div>
-    <!-- 요일 헤더 (고정, 매월 다시 그릴 필요 없음) -->
-    <div class="calendar-weekdays">
-      <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+
+    <!-- 달력 (app.js의 renderCalendar에서 값 갱신) -->
+    <div class="calendar-box">
+      <div class="calendar-header">
+        <button id="calendar-prev" class="calendar-nav" type="button" aria-label="이전 달">‹</button>
+        <div id="calendar-title">-</div>
+        <button id="calendar-next" class="calendar-nav" type="button" aria-label="다음 달">›</button>
+      </div>
+      <!-- 요일 헤더 (고정, 매월 다시 그릴 필요 없음) -->
+      <div class="calendar-weekdays">
+        <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+      </div>
+      <!-- 날짜 칸: renderCalendar가 매번 새로 채움 -->
+      <div id="calendar-days" class="calendar-days"></div>
     </div>
-    <!-- 날짜 칸: renderCalendar가 매번 새로 채움 -->
-    <div id="calendar-days" class="calendar-days"></div>
-  </div>
 
-  <!-- 우측 상단 고정 시계 (app.js의 updateClock에서 값 갱신) -->
-  <div class="clock-box">
-    <div id="time">--:--:--</div>
-    <div id="date">-</div>
-  </div>
-
-  <div class="todo-app">
-    <h1>할 일 목록</h1>
-    <form id="todo-form">
-      <input type="text" id="todo-input" placeholder="할 일을 입력하세요" autocomplete="off">
-      <button type="submit">추가</button>
-    </form>
-    <ul id="todo-list"></ul>
+    <div class="todo-app">
+      <h1>할 일 목록</h1>
+      <form id="todo-form">
+        <input type="text" id="todo-input" placeholder="할 일을 입력하세요" autocomplete="off">
+        <button type="submit">추가</button>
+      </form>
+      <ul id="todo-list"></ul>
+    </div>
   </div>
 
   <script src="app.js"></script>
