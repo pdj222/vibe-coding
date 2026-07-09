@@ -69,32 +69,66 @@ document.getElementById('calendar-next').addEventListener('click', () => {
 
 renderCalendar();
 
+// 할 일 목록: todos 배열을 유일한 상태로 두고, 변경마다 저장 후 다시 그린다
+const TODOS_STORAGE_KEY = 'todos';
+
+function loadTodos() {
+  try {
+    // 저장된 값이 없거나 JSON 파싱에 실패하면 빈 목록으로 시작
+    return JSON.parse(localStorage.getItem(TODOS_STORAGE_KEY)) || [];
+  } catch {
+    return []; // 저장된 값이 손상된 경우 빈 목록으로 시작
+  }
+}
+
+function saveTodos() {
+  localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(todos));
+}
+
+function renderTodos() {
+  list.innerHTML = ''; // 매번 todos 배열을 기준으로 전체를 다시 그림
+
+  todos.forEach(todo => {
+    const li = document.createElement('li');
+    li.className = 'todo-item' + (todo.completed ? ' completed' : '');
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = todo.completed;
+    checkbox.addEventListener('change', () => {
+      todo.completed = checkbox.checked;
+      saveTodos();
+      renderTodos();
+    });
+
+    const span = document.createElement('span');
+    span.textContent = todo.text;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'delete-btn';
+    deleteBtn.textContent = '✕';
+    deleteBtn.addEventListener('click', () => {
+      todos = todos.filter(t => t.id !== todo.id);
+      saveTodos();
+      renderTodos();
+    });
+
+    li.append(checkbox, span, deleteBtn);
+    list.appendChild(li);
+  });
+}
+
+let todos = loadTodos();
+renderTodos();
+
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const text = input.value.trim();
   if (!text) return;
 
-  const li = document.createElement('li');
-  li.className = 'todo-item';
-
-  const checkbox = document.createElement('input');
-  checkbox.type = 'checkbox';
-  checkbox.addEventListener('change', () => {
-    li.classList.toggle('completed', checkbox.checked);
-  });
-
-  const span = document.createElement('span');
-  span.textContent = text;
-
-  const deleteBtn = document.createElement('button');
-  deleteBtn.className = 'delete-btn';
-  deleteBtn.textContent = '✕';
-  deleteBtn.addEventListener('click', () => {
-    li.remove();
-  });
-
-  li.append(checkbox, span, deleteBtn);
-  list.appendChild(li);
+  todos.push({ id: Date.now(), text, completed: false }); // Date.now()로 항목마다 고유 id 부여
+  saveTodos();
+  renderTodos();
 
   input.value = '';
   input.focus();
